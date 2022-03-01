@@ -33,4 +33,42 @@ public class SimpleCase : MonoBehaviour
         mesh.vertices = verts;
         mesh.triangles = triangle;
     }
+
+
+    void DrawManyNiceTriangles()
+    {
+        int xSize = 10;
+        int zSize = 10;
+        verts = new Vector3[(xSize + 1) * (zSize + 1)];
+        triangle = new int[xSize * zSize];
+
+        // iterate all vertices
+        int i = 0;
+        for (int x = 0; x <= xSize; x++) // each row
+        {
+            for (int z = 0; z <= zSize; z++) // each column
+            {
+                // calculate our y(height value) based on x and z
+                float y = Y(x, z);
+
+                verts[i] = new Vector3(x, y, z);
+                i++;
+            }
+        }
+
+        // map all triangles to the vertices we've just created
+        for (int x = 0; x <= xSize; x++) // each row
+        {
+            for (int z = 0; z <= zSize; z++) // each column
+            {
+                // map them here...
+            }
+        }
+    }
+
+    // user's custom y function
+    float Y(float x, float z)
+    {
+        return x * 2 + z * 4;
+    }
 }
