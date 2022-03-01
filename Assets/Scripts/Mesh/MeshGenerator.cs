@@ -13,26 +13,18 @@ public class MeshGenerator : MonoBehaviour
     Mesh mesh1;
     Vector3[] vertices1;
     int[] triangles1;
-    Vector2[] uvs1;
-    Color[] colors1;
 
     Mesh mesh2;
     Vector3[] vertices2;
     int[] triangles2;
-    Vector2[] uvs2;
-    Color[] colors2;
 
     Mesh mesh3;
     Vector3[] vertices3;
     int[] triangles3;
-    Vector2[] uvs3;
-    Color[] colors3;
 
     Mesh mesh4;
     Vector3[] vertices4;
     int[] triangles4;
-    Vector2[] uvs4;
-    Color[] colors4;
 
     public int xSize = 5;
     public int zSize = 5;
@@ -74,7 +66,6 @@ public class MeshGenerator : MonoBehaviour
     {
         // vertices and colors
         vertices1 = new Vector3[(xSize + 1) * (zSize + 1)];
-        colors1 = new Color[vertices1.Length];
 
         // +x +z
         int i = 0;
@@ -86,7 +77,6 @@ public class MeshGenerator : MonoBehaviour
                 float y = scaler * GetMathFunctionFromInput(input).Invoke(x, z);
                 float height = Mathf.InverseLerp(minHeight, maxHeight, y);
 
-                colors1[i] = gradient.Evaluate(height);
                 vertices1[i] = new Vector3(x, y, z);
 
                 if (y > maxHeight)
@@ -98,20 +88,12 @@ public class MeshGenerator : MonoBehaviour
             }
         }
 
-        // uvs
-        uvs1 = new Vector2[vertices1.Length];
-        i = 0;
-        for (float z = 0; z <= zSize; z++)
-        {
-            for (float x = 0; x <= xSize; x++)
-            {
-                uvs1[i] = new Vector2(x / xSize, z / zSize);
-                i++;
-            }
-        }
+        meshFilter1.transform.GetComponent<ShowPointsGizmo>().verts = vertices1;
+        meshFilter1.transform.GetComponent<ShowPointsGizmo>().xSize = xSize;
+        meshFilter1.transform.GetComponent<ShowPointsGizmo>().zSize = zSize;
 
         // triangles
-        triangles1 = new int[xSize * zSize * 6 * 2];
+        triangles1 = new int[xSize * zSize * 6];
         int vert = 0;
         int tris = 0;
 
@@ -126,14 +108,8 @@ public class MeshGenerator : MonoBehaviour
                 triangles1[tris + 3] = vert + 1;
                 triangles1[tris + 4] = vert + xSize + 2;
                 triangles1[tris + 5] = vert + xSize + 1;
-                triangles1[tris + 6] = vert + 0;
-                triangles1[tris + 7] = vert + xSize + 1;
-                triangles1[tris + 8] = vert + 1;
-                triangles1[tris + 9] = vert + 1;
-                triangles1[tris + 10] = vert + xSize + 1;
-                triangles1[tris + 11] = vert + xSize + 2;
 
-                tris += 12;
+                tris += 6;
                 vert++;
                 yield return new WaitForSeconds(1f / generationSpeed);
             }
@@ -145,7 +121,6 @@ public class MeshGenerator : MonoBehaviour
     {
         // vertices and colors
         vertices2 = new Vector3[(xSize + 1) * (zSize + 1)];
-        colors2 = new Color[vertices2.Length];
 
         // +x -z
         int i = 0;
@@ -157,7 +132,6 @@ public class MeshGenerator : MonoBehaviour
                 float y = scaler * GetMathFunctionFromInput(input).Invoke(x, z);
                 float height = Mathf.InverseLerp(minHeight, maxHeight, y);
 
-                colors2[i] = gradient.Evaluate(height);
                 vertices2[i] = new Vector3(x, y, z);
 
                 if (y > maxHeight)
@@ -169,20 +143,12 @@ public class MeshGenerator : MonoBehaviour
             }
         }
 
-        // uvs
-        uvs2 = new Vector2[vertices2.Length];
-        i = 0;
-        for (float z = 0; z <= zSize; z++)
-        {
-            for (float x = 0; x <= xSize; x++)
-            {
-                uvs2[i] = new Vector2(x / xSize, z / zSize);
-                i++;
-            }
-        }
+        meshFilter2.transform.GetComponent<ShowPointsGizmo>().verts = vertices2;
+        meshFilter2.transform.GetComponent<ShowPointsGizmo>().xSize = xSize;
+        meshFilter2.transform.GetComponent<ShowPointsGizmo>().zSize = zSize;
 
         // triangles
-        triangles2 = new int[xSize * zSize * 6 * 2];
+        triangles2 = new int[xSize * zSize * 6];
         int vert = 0;
         int tris = 0;
 
@@ -197,14 +163,8 @@ public class MeshGenerator : MonoBehaviour
                 triangles2[tris + 3] = vert + xSize + 1;
                 triangles2[tris + 4] = vert + 1;
                 triangles2[tris + 5] = vert + xSize + 2;
-                triangles2[tris + 6] = vert + 0;
-                triangles2[tris + 7] = vert + xSize + 1;
-                triangles2[tris + 8] = vert + 1;
-                triangles2[tris + 9] = vert + 1;
-                triangles2[tris + 10] = vert + xSize + 1;
-                triangles2[tris + 11] = vert + xSize + 2;
 
-                tris += 12;
+                tris += 6;
                 vert++;
                 yield return new WaitForSeconds(1f / generationSpeed);
             }
@@ -216,7 +176,6 @@ public class MeshGenerator : MonoBehaviour
     {
         // vertices and colors
         vertices3 = new Vector3[(xSize + 1) * (zSize + 1)];
-        colors3 = new Color[vertices3.Length];
 
         // +x -z
         int i = 0;
@@ -228,7 +187,6 @@ public class MeshGenerator : MonoBehaviour
                 float y = scaler * GetMathFunctionFromInput(input).Invoke(x, z);
                 float height = Mathf.InverseLerp(minHeight, maxHeight, y);
 
-                colors3[i] = gradient.Evaluate(height);
                 vertices3[i] = new Vector3(x, y, z);
 
                 if (y > maxHeight)
@@ -240,20 +198,12 @@ public class MeshGenerator : MonoBehaviour
             }
         }
 
-        // uvs
-        uvs3 = new Vector2[vertices3.Length];
-        i = 0;
-        for (float z = 0; z <= zSize; z++)
-        {
-            for (float x = 0; x <= xSize; x++)
-            {
-                uvs3[i] = new Vector2(x / xSize, z / zSize);
-                i++;
-            }
-        }
+        meshFilter3.transform.GetComponent<ShowPointsGizmo>().verts = vertices3;
+        meshFilter3.transform.GetComponent<ShowPointsGizmo>().xSize = xSize;
+        meshFilter3.transform.GetComponent<ShowPointsGizmo>().zSize = zSize;
 
         // triangles
-        triangles3 = new int[xSize * zSize * 6 * 2];
+        triangles3 = new int[xSize * zSize * 6];
         int vert = 0;
         int tris = 0;
 
@@ -268,14 +218,8 @@ public class MeshGenerator : MonoBehaviour
                 triangles3[tris + 3] = vert + xSize + 1;
                 triangles3[tris + 4] = vert + 1;
                 triangles3[tris + 5] = vert + xSize + 2;
-                triangles3[tris + 6] = vert + 0;
-                triangles3[tris + 7] = vert + xSize + 1;
-                triangles3[tris + 8] = vert + 1;
-                triangles3[tris + 9] = vert + 1;
-                triangles3[tris + 10] = vert + xSize + 1;
-                triangles3[tris + 11] = vert + xSize + 2;
 
-                tris += 12;
+                tris += 6;
                 vert++;
                 yield return new WaitForSeconds(1f / generationSpeed);
             }
@@ -287,7 +231,6 @@ public class MeshGenerator : MonoBehaviour
     {
         // vertices and colors
         vertices4 = new Vector3[(xSize + 1) * (zSize + 1)];
-        colors4 = new Color[vertices4.Length];
 
         // +x -z
         int i = 0;
@@ -299,7 +242,6 @@ public class MeshGenerator : MonoBehaviour
                 float y = scaler * GetMathFunctionFromInput(input).Invoke(x, z);
                 float height = Mathf.InverseLerp(minHeight, maxHeight, y);
 
-                colors4[i] = gradient.Evaluate(height);
                 vertices4[i] = new Vector3(x, y, z);
 
                 if (y > maxHeight)
@@ -311,20 +253,12 @@ public class MeshGenerator : MonoBehaviour
             }
         }
 
-        // uvs
-        uvs4 = new Vector2[vertices4.Length];
-        i = 0;
-        for (float z = 0; z <= zSize; z++)
-        {
-            for (float x = 0; x <= xSize; x++)
-            {
-                uvs4[i] = new Vector2(x / xSize, z / zSize);
-                i++;
-            }
-        }
+        meshFilter4.transform.GetComponent<ShowPointsGizmo>().verts = vertices4;
+        meshFilter4.transform.GetComponent<ShowPointsGizmo>().xSize = xSize;
+        meshFilter4.transform.GetComponent<ShowPointsGizmo>().zSize = zSize;
 
         // triangles
-        triangles4 = new int[xSize * zSize * 6 * 2];
+        triangles4 = new int[xSize * zSize * 6];
         int vert = 0;
         int tris = 0;
 
@@ -339,14 +273,8 @@ public class MeshGenerator : MonoBehaviour
                 triangles4[tris + 3] = vert + xSize + 1;
                 triangles4[tris + 4] = vert + 1;
                 triangles4[tris + 5] = vert + xSize + 2;
-                triangles4[tris + 6] = vert + 0;
-                triangles4[tris + 7] = vert + xSize + 1;
-                triangles4[tris + 8] = vert + 1;
-                triangles4[tris + 9] = vert + 1;
-                triangles4[tris + 10] = vert + xSize + 1;
-                triangles4[tris + 11] = vert + xSize + 2;
 
-                tris += 12;
+                tris += 6;
                 vert++;
                 yield return new WaitForSeconds(1f / generationSpeed);
             }
@@ -363,20 +291,12 @@ public class MeshGenerator : MonoBehaviour
 
         mesh1.vertices = vertices1;
         mesh1.triangles = triangles1;
-        mesh1.uv = uvs1;
-        mesh1.colors = colors1;
         mesh2.vertices = vertices2;
         mesh2.triangles = triangles2;
-        mesh2.uv = uvs2;
-        mesh2.colors = colors2;
         mesh3.vertices = vertices3;
         mesh3.triangles = triangles3;
-        mesh3.uv = uvs3;
-        mesh3.colors = colors3;
         mesh4.vertices = vertices4;
         mesh4.triangles = triangles4;
-        mesh4.uv = uvs4;
-        mesh4.colors = colors4;
 
         mesh1.RecalculateNormals();
         mesh2.RecalculateNormals();
